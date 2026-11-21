@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit: {{ post['title'] }} | Nexus Blog{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <div class="breadcrumb-nav">
+        <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="back-link">&larr; Return to Article</a>
+    </div>
+
+    <div class="glass-form-card">
+        <div class="form-card-header">
+            <h1 class="form-card-title">Edit Post</h1>
+            <p class="form-card-subtitle">Make revisions or update your article details.</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('edit', post_id=post['id']) }}" class="modern-form">
+            <div class="form-row-2col">
+                <div class="form-group">
+                    <label for="author" class="field-label">Author Name</label>
+                    <input 
+                        type="text" 
+                        id="author" 
+                        name="author" 
+                        class="field-input" 
+                        value="{{ request.form['author'] if request.form['author'] else post['author'] }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="tag" class="field-label">Category Tag</label>
+                    <select id="tag" name="tag" class="field-input field-select">
+                        {% set current_tag = request.form['tag'] if request.form['tag'] else post['tag'] %}
+                        <option value="Tech" {% if current_tag == 'Tech' %}selected{% endif %}>Tech</option>
+                        <option value="Design" {% if current_tag == 'Design' %}selected{% endif %}>Design</option>
+                        <option value="Coding" {% if current_tag == 'Coding' %}selected{% endif %}>Coding</option>
+                        <option value="Career" {% if current_tag == 'Career' %}selected{% endif %}>Career</option>
+                        <option value="Thoughts" {% if current_tag == 'Thoughts' %}selected{% endif %}>Thoughts</option>
+                        <option value="General" {% if current_tag == 'General' %}selected{% endif %}>General</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="field-label">Post Title <span class="required-star">*</span></label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="field-input" 
+                    value="{{ request.form['title'] if request.form['title'] else post['title'] }}" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content" class="field-label">Content Body <span class="required-star">*</span></label>
+                <textarea 
+                    id="content" 
+                    name="content" 
+                    class="field-textarea" 
+                    rows="10" 
+                    required
+                >{{ request.form['content'] if request.form['content'] else post['content'] }}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-gradient btn-lg">Save Changes</button>
+                <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="btn btn-secondary-dark btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

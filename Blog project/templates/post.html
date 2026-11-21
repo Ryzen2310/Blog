@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post['title'] }} | Nexus Blog{% endblock %}
+
+{% block content %}
+<div class="single-post-wrapper">
+    <div class="breadcrumb-nav">
+        <a href="{{ url_for('index') }}" class="back-link">&larr; Return to Feed</a>
+    </div>
+
+    <article class="single-post-article">
+        <header class="article-header">
+            <div class="article-tags">
+                <span class="tag-badge">{{ post['tag'] if post['tag'] else 'General' }}</span>
+                <span class="read-time">⏱️ {{ (post['content'].split()|length // 150) + 1 }} min read</span>
+            </div>
+
+            <h1 class="article-title">{{ post['title'] }}</h1>
+
+            <div class="article-author-bar">
+                <div class="article-author">
+                    <div class="author-avatar-badge">{{ post['author'][:1] if post['author'] else 'A' }}</div>
+                    <div>
+                        <div class="author-name-lg">{{ post['author'] if post['author'] else 'Author' }}</div>
+                        <div class="article-meta-date">
+                            Published on {{ post['created_at'] }}
+                            {% if post['updated_at'] %}
+                                • <span class="edited-tag">Edited on {{ post['updated_at'] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="article-body">
+            <div class="article-content-text">{{ post['content'] }}</div>
+        </div>
+
+        <footer class="article-footer">
+            <div class="article-actions">
+                <a href="{{ url_for('edit', post_id=post['id']) }}" class="btn btn-secondary-dark">✏️ Edit Post</a>
+                <form action="{{ url_for('delete', post_id=post['id']) }}" method="POST" class="inline-form" onsubmit="return confirm('Are you sure you want to permanently delete this post?');">
+                    <button type="submit" class="btn btn-danger-dark">🗑️ Delete Post</button>
+                </form>
+            </div>
+            <a href="{{ url_for('index') }}" class="btn-clear-link">Back to Feed &rarr;</a>
+        </footer>
+    </article>
+</div>
+{% endblock %}

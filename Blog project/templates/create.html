@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Write Post | Nexus Blog{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <div class="breadcrumb-nav">
+        <a href="{{ url_for('index') }}" class="back-link">&larr; Return to Feed</a>
+    </div>
+
+    <div class="glass-form-card">
+        <div class="form-card-header">
+            <h1 class="form-card-title">Create New Post</h1>
+            <p class="form-card-subtitle">Share your insights, tutorials, or engineering thoughts.</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('create') }}" class="modern-form">
+            <div class="form-row-2col">
+                <div class="form-group">
+                    <label for="author" class="field-label">Author Name</label>
+                    <input 
+                        type="text" 
+                        id="author" 
+                        name="author" 
+                        class="field-input" 
+                        placeholder="e.g. Alex Chen, Jordan Lee..." 
+                        value="{{ request.form['author'] if request.form['author'] else 'Author' }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="tag" class="field-label">Category Tag</label>
+                    <select id="tag" name="tag" class="field-input field-select">
+                        <option value="Tech" {% if request.form.get('tag') == 'Tech' %}selected{% endif %}>Tech</option>
+                        <option value="Design" {% if request.form.get('tag') == 'Design' %}selected{% endif %}>Design</option>
+                        <option value="Coding" {% if request.form.get('tag') == 'Coding' %}selected{% endif %}>Coding</option>
+                        <option value="Career" {% if request.form.get('tag') == 'Career' %}selected{% endif %}>Career</option>
+                        <option value="Thoughts" {% if request.form.get('tag') == 'Thoughts' %}selected{% endif %}>Thoughts</option>
+                        <option value="General" {% if request.form.get('tag') == 'General' %}selected{% endif %}>General</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="field-label">Post Title <span class="required-star">*</span></label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="field-input" 
+                    placeholder="Enter an engaging post title..." 
+                    value="{{ request.form['title'] if request.form['title'] else '' }}" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content" class="field-label">Content Body <span class="required-star">*</span></label>
+                <textarea 
+                    id="content" 
+                    name="content" 
+                    class="field-textarea" 
+                    rows="10" 
+                    placeholder="Write your article body here..." 
+                    required
+                >{{ request.form['content'] if request.form['content'] else '' }}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-gradient btn-lg">Publish Post</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary-dark btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

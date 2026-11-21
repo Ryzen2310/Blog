@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Feed | Nexus Blog{% endblock %}
+
+{% block content %}
+<!-- Modern Hero Section -->
+<div class="hero-banner">
+    <div class="hero-content">
+        <span class="hero-badge">🚀 Community Feed</span>
+        <h1 class="hero-title">Explore Articles, Code & <span class="gradient-text">Fresh Ideas</span></h1>
+        <p class="hero-subtitle">A modern space for sharing engineering thoughts, tutorials, and project updates.</p>
+    </div>
+
+    <!-- Search Bar -->
+    <form action="{{ url_for('index') }}" method="GET" class="search-form">
+        <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                name="q" 
+                class="search-input" 
+                placeholder="Search posts by title, content, author, or tag..." 
+                value="{{ search_query if search_query else '' }}"
+            >
+            {% if search_query %}
+                <a href="{{ url_for('index') }}" class="search-clear-btn" title="Clear Search">&times;</a>
+            {% endif %}
+            <button type="submit" class="btn btn-search">Search</button>
+        </div>
+    </form>
+</div>
+
+<!-- Active Filter Status -->
+{% if search_query %}
+    <div class="search-status-bar">
+        <span>Showing results for: <strong>"{{ search_query }}"</strong> ({{ posts|length }} posts found)</span>
+        <a href="{{ url_for('index') }}" class="btn-clear-link">View all posts &rarr;</a>
+    </div>
+{% endif %}
+
+<!-- Post Section Header -->
+<div class="board-header">
+    <h2 class="board-section-title">
+        <span>Latest Articles</span>
+        <span class="board-count">({{ posts|length }})</span>
+    </h2>
+    <a href="{{ url_for('create') }}" class="btn btn-gradient-small">+ New Post</a>
+</div>
+
+<!-- Side-by-Side 2-Column Cards Grid -->
+{% if posts %}
+    <div class="posts-grid-cards">
+        {% for post in posts %}
+            <article class="modern-card" style="animation-delay: {{ loop.index0 * 0.08 }}s;">
+                <div class="card-meta-top">
+                    <span class="tag-badge">{{ post['tag'] if post['tag'] else 'General' }}</span>
+                    <span class="read-time">⏱️ {{ (post['content'].split()|length // 150) + 1 }} min read</span>
+                </div>
+
+                <h3 class="card-title">
+                    <a href="{{ url_for('post_detail', post_id=post['id']) }}">{{ post['title'] }}</a>
+                </h3>
+
+                <!-- Author & Date Details -->
+                <div class="author-row">
+                    <div class="author-info">
+                        <span class="author-avatar-dot"></span>
+                        <span class="author-name">{{ post['author'] if post['author'] else 'Author' }}</span>
+                    </div>
+                    <span class="post-date">
+                        {{ post['created_at'][:10] }}
+                        {% if post['updated_at'] %}
+                            <span class="edited-tag">(edited)</span>
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <p class="card-excerpt">
+                        {{ post['content'][:180] }}{% if post['content']|length > 180 %}...{% endif %}
+                    </p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="btn-read-more">
+                        Read full article &rarr;
+                    </a>
+                    <div class="card-actions">
+                        <a href="{{ url_for('edit', post_id=post['id']) }}" class="btn-card-action btn-edit" title="Edit Post">Edit</a>
+                        <form action="{{ url_for('delete', post_id=post['id']) }}" method="POST" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            <button type="submit" class="btn-card-action btn-delete" title="Delete Post">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <h3>No articles found</h3>
+        {% if search_query %}
+            <p>No posts matched your search for "{{ search_query }}".</p>
+            <a href="{{ url_for('index') }}" class="btn btn-gradient">Clear Search</a>
+        {% else %}
+            <p>Be the first to publish an article on Nexus Blog!</p>
+            <a href="{{ url_for('create') }}" class="btn btn-gradient btn-lg">+ Write the First Post</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
