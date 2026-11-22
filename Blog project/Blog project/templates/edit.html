@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit: {{ post['title'] }} | Like a Blogger{% endblock %}
+
+{% block content %}
+<div class="form-page-wrapper">
+    <div class="breadcrumb-bar">
+        <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="back-link">➔ Return to Story</a>
+    </div>
+
+    <div class="zine-form-card">
+        <div class="form-title-group">
+            <span class="eyebrow-pill">✦ EDIT DISPATCH</span>
+            <h1 class="form-main-heading">Revise Story</h1>
+            <p class="form-desc">Update your headline, content, or attribution details.</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('edit', post_id=post['id']) }}" class="zine-form">
+            <div class="form-row-dual">
+                <div class="form-field-group">
+                    <label for="author" class="field-label">Author Name</label>
+                    <input 
+                        type="text" 
+                        id="author" 
+                        name="author" 
+                        class="zine-input" 
+                        value="{{ request.form['author'] if request.form['author'] else post['author'] }}"
+                    >
+                </div>
+
+                <div class="form-field-group">
+                    <label for="tag" class="field-label">Category Tag</label>
+                    <select id="tag" name="tag" class="zine-input zine-select">
+                        {% set current_tag = request.form['tag'] if request.form['tag'] else post['tag'] %}
+                        <option value="Content Creation" {% if current_tag == 'Content Creation' %}selected{% endif %}>Content Creation</option>
+                        <option value="Design & Style" {% if current_tag == 'Design & Style' %}selected{% endif %}>Design & Style</option>
+                        <option value="Technology" {% if current_tag == 'Technology' %}selected{% endif %}>Technology</option>
+                        <option value="Writing Tips" {% if current_tag == 'Writing Tips' %}selected{% endif %}>Writing Tips</option>
+                        <option value="Uncharted Journeys" {% if current_tag == 'Uncharted Journeys' %}selected{% endif %}>Uncharted Journeys</option>
+                        <option value="General" {% if current_tag == 'General' %}selected{% endif %}>General</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-field-group">
+                <label for="title" class="field-label">Story Headline <span class="required-star">*</span></label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="zine-input" 
+                    value="{{ request.form['title'] if request.form['title'] else post['title'] }}" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="form-field-group">
+                <label for="content" class="field-label">Story Content <span class="required-star">*</span></label>
+                <textarea 
+                    id="content" 
+                    name="content" 
+                    class="zine-textarea" 
+                    rows="10" 
+                    required
+                >{{ request.form['content'] if request.form['content'] else post['content'] }}</textarea>
+            </div>
+
+            <div class="form-actions-bar">
+                <button type="submit" class="btn btn-mustard btn-lg">Save Revisions ➔</button>
+                <a href="{{ url_for('post_detail', post_id=post['id']) }}" class="btn btn-subtle btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

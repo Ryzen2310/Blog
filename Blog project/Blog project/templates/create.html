@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Write Post | Like a Blogger{% endblock %}
+
+{% block content %}
+<div class="form-page-wrapper">
+    <div class="breadcrumb-bar">
+        <a href="{{ url_for('index') }}" class="back-link">➔ Return to Home Feed</a>
+    </div>
+
+    <div class="zine-form-card">
+        <div class="form-title-group">
+            <span class="eyebrow-pill">✦ NEW DISPATCH</span>
+            <h1 class="form-main-heading">Write Like a Blogger</h1>
+            <p class="form-desc">Share tutorials, stories, or reflections with the creative community.</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('create') }}" class="zine-form">
+            <div class="form-row-dual">
+                <div class="form-field-group">
+                    <label for="author" class="field-label">Author Name</label>
+                    <input 
+                        type="text" 
+                        id="author" 
+                        name="author" 
+                        class="zine-input" 
+                        placeholder="e.g. Admin, Maya, Alex..." 
+                        value="{{ request.form['author'] if request.form['author'] else 'Admin' }}"
+                    >
+                </div>
+
+                <div class="form-field-group">
+                    <label for="tag" class="field-label">Category Tag</label>
+                    <select id="tag" name="tag" class="zine-input zine-select">
+                        <option value="Content Creation" {% if request.form.get('tag') == 'Content Creation' %}selected{% endif %}>Content Creation</option>
+                        <option value="Design & Style" {% if request.form.get('tag') == 'Design & Style' %}selected{% endif %}>Design & Style</option>
+                        <option value="Technology" {% if request.form.get('tag') == 'Technology' %}selected{% endif %}>Technology</option>
+                        <option value="Writing Tips" {% if request.form.get('tag') == 'Writing Tips' %}selected{% endif %}>Writing Tips</option>
+                        <option value="Uncharted Journeys" {% if request.form.get('tag') == 'Uncharted Journeys' %}selected{% endif %}>Uncharted Journeys</option>
+                        <option value="General" {% if request.form.get('tag') == 'General' %}selected{% endif %}>General</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-field-group">
+                <label for="title" class="field-label">Story Headline <span class="required-star">*</span></label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="zine-input" 
+                    placeholder="Enter a captivating headline..." 
+                    value="{{ request.form['title'] if request.form['title'] else '' }}" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <div class="form-field-group">
+                <label for="content" class="field-label">Story Content <span class="required-star">*</span></label>
+                <textarea 
+                    id="content" 
+                    name="content" 
+                    class="zine-textarea" 
+                    rows="10" 
+                    placeholder="Write your article here..." 
+                    required
+                >{{ request.form['content'] if request.form['content'] else '' }}</textarea>
+            </div>
+
+            <div class="form-actions-bar">
+                <button type="submit" class="btn btn-mustard btn-lg">Publish Post ➔</button>
+                <a href="{{ url_for('index') }}" class="btn btn-subtle btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

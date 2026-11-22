@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post['title'] }} | Like a Blogger{% endblock %}
+
+{% block content %}
+<div class="single-post-wrapper">
+    <div class="breadcrumb-bar">
+        <a href="{{ url_for('index') }}" class="back-link">➔ Return to Home Feed</a>
+    </div>
+
+    <article class="zine-article-container">
+        <header class="zine-article-header">
+            <div class="article-meta-tags">
+                <span class="pill-category">
+                    <span class="category-dot">●</span>
+                    {{ post['tag'] if post['tag'] else 'Content Creation' }}
+                </span>
+                <span class="zine-readtime">⏱️ {{ (post['content'].split()|length // 150) + 1 }} min read</span>
+            </div>
+
+            <h1 class="article-main-title">{{ post['title'] }}</h1>
+
+            <div class="article-meta-row">
+                <div class="author-capsule">
+                    <span class="author-initial">{{ post['author'][:1] if post['author'] else 'A' }}</span>
+                    <div>
+                        <div class="author-name-bold">{{ post['author'] if post['author'] else 'Author' }}</div>
+                        <div class="article-date-subtext">
+                            Published on {{ post['created_at'][:10] }}
+                            {% if post['updated_at'] %}
+                                • <span class="edited-badge">Edited on {{ post['updated_at'][:10] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-live-stats">
+                    <span class="stat-pill">👁️ {{ post['views'] }} views</span>
+                    <form action="{{ url_for('like_post', post_id=post['id']) }}" method="POST" class="inline-form">
+                        <button type="submit" class="btn-like-pill-lg" title="Like this story">
+                            ❤️ {{ post['likes'] }} Likes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <div class="zine-article-content">
+            <div class="article-body-text">{{ post['content'] }}</div>
+        </div>
+
+        <footer class="zine-article-footer">
+            <div class="footer-actions">
+                <a href="{{ url_for('edit', post_id=post['id']) }}" class="btn btn-zine-action btn-zine-edit">✏️ Edit Story</a>
+                <form action="{{ url_for('delete', post_id=post['id']) }}" method="POST" class="inline-form" onsubmit="return confirm('Permanently remove this story?');">
+                    <button type="submit" class="btn btn-zine-action btn-zine-delete">🗑️ Delete Story</button>
+                </form>
+            </div>
+            <a href="{{ url_for('index') }}" class="back-to-feed-link">Back to Feed ➔</a>
+        </footer>
+    </article>
+</div>
+{% endblock %}
