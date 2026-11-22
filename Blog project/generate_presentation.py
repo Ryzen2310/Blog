@@ -10,14 +10,14 @@ def create_presentation():
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
 
-    # Sleek Blue, Purple & Black Palette
-    COLOR_PRIMARY = RGBColor(9, 13, 22)       # Deep Obsidian Black
-    COLOR_BLUE = RGBColor(59, 130, 246)       # Electric Blue
-    COLOR_PURPLE = RGBColor(139, 92, 246)     # Neon Purple
-    COLOR_DARK = RGBColor(15, 23, 42)         # Deep Slate
-    COLOR_MUTED = RGBColor(148, 163, 184)     # Medium Slate
-    COLOR_BG_CARD = RGBColor(248, 250, 252)   # Card Fill
-    COLOR_TEXT = RGBColor(15, 23, 42)
+    # Neo-Brutalist Palette (Powder Blue, Oxblood Burgundy, Mustard Yellow, Off-White)
+    COLOR_PRIMARY = RGBColor(91, 35, 33)       # Deep Oxblood Maroon / Burgundy (#5B2321)
+    COLOR_MUSTARD = RGBColor(232, 154, 60)     # Warm Mustard / Ochre (#E89A3C)
+    COLOR_POWDER = RGBColor(188, 216, 216)     # Powder Sage Blue (#BCD8D8)
+    COLOR_DARK = RGBColor(69, 26, 25)          # Deep Oxblood Dark
+    COLOR_MUTED = RGBColor(123, 79, 77)        # Muted Burgundy
+    COLOR_BG_CARD = RGBColor(252, 250, 247)    # Crisp Off-White Cream
+    COLOR_TEXT = RGBColor(91, 35, 33)
 
     blank_layout = prs.slide_layouts[6]
 
@@ -29,7 +29,7 @@ def create_presentation():
         p_cat.text = category_text.upper()
         p_cat.font.size = Pt(11)
         p_cat.font.bold = True
-        p_cat.font.color.rgb = COLOR_PURPLE
+        p_cat.font.color.rgb = COLOR_MUSTARD
 
         title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.7), Inches(11.5), Inches(0.8))
         tf_title = title_box.text_frame
@@ -38,7 +38,7 @@ def create_presentation():
         p_title.text = title_text
         p_title.font.size = Pt(26)
         p_title.font.bold = True
-        p_title.font.color.rgb = COLOR_BLUE
+        p_title.font.color.rgb = COLOR_PRIMARY
 
     # =========================================================================
     # SLIDE 1: Title Slide
@@ -48,7 +48,7 @@ def create_presentation():
     # Left decorative bar
     bar = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(0.4), Inches(7.5))
     bar.fill.solid()
-    bar.fill.fore_color.rgb = COLOR_PURPLE
+    bar.fill.fore_color.rgb = COLOR_MUSTARD
     bar.line.fill.background()
 
     t_box = slide1.shapes.add_textbox(Inches(1.2), Inches(1.8), Inches(11), Inches(4.5))
@@ -56,25 +56,25 @@ def create_presentation():
     tf1.word_wrap = True
     
     p = tf1.paragraphs[0]
-    p.text = "NEXUS BLOG: WEB APPLICATION"
+    p.text = "LIKE A BLOGGER: WEB APPLICATION"
     p.font.size = Pt(36)
     p.font.bold = True
     p.font.color.rgb = COLOR_PRIMARY
 
     p2 = tf1.add_paragraph()
-    p2.text = "Full-Stack Development, Dual-Column Card Grid, Live Search & Modern Animations"
+    p2.text = "Full-Stack Development, Neo-Brutalist Zine UI, Marquee Ribbon & CRUD Architecture"
     p2.font.size = Pt(20)
-    p2.font.color.rgb = COLOR_BLUE
+    p2.font.color.rgb = COLOR_MUSTARD
     p2.space_before = Pt(12)
 
     p3 = tf1.add_paragraph()
-    p3.text = "Internship Project Review & Key Findings  •  Blue, Purple & Obsidian Palette"
+    p3.text = "Internship Project Review & Key Findings  •  Inspired by Nomad Tome Editorial Style"
     p3.font.size = Pt(15)
     p3.font.color.rgb = COLOR_MUTED
     p3.space_before = Pt(24)
 
     p4 = tf1.add_paragraph()
-    p4.text = "Presenter: Software Engineering Intern  |  Technology: Python 3.12 • Flask • SQLite • Modern CSS"
+    p4.text = "Presenter: Software Engineering Intern  |  Technology: Python 3.12 • Flask • SQLite • Neo-Brutalist CSS"
     p4.font.size = Pt(13)
     p4.font.bold = True
     p4.font.color.rgb = COLOR_DARK
@@ -87,9 +87,9 @@ def create_presentation():
     add_header(slide2, "Project Objectives & Core Requirements", "01 / CONTEXT & GOALS")
 
     cards_data = [
-        ("Requirement 1: Content Creation", "Users can compose and publish articles with a title, author name, category tag, and body content.", "✓ Author attribution\n✓ Category taxonomy\n✓ Instant feed publication"),
-        ("Requirement 2: Side-by-Side Feed", "Display all posts in a responsive 2-column side-by-side card grid with animated entrances and live search.", "✓ Dual-column card grid\n✓ Live keyword search\n✓ Read-time estimates"),
-        ("Requirement 3: Lifecycle Management", "Provide full administrative control allowing existing posts to be updated or permanently deleted.", "✓ Pre-populated edit forms\n✓ Deletion safety prompts\n✓ Status feedback alerts")
+        ("Requirement 1: Content Creation", "Users can compose and publish articles with a title, author name, category tag, and rich body content.", "✓ Author attribution\n✓ Category taxonomy\n✓ Real-time publication"),
+        ("Requirement 2: Side-by-Side Feed", "Display all posts in a responsive 2-column side-by-side card grid with view tracking and live search.", "✓ Dual-column zine grid\n✓ Live keyword search\n✓ Read-time & view counters"),
+        ("Requirement 3: Lifecycle Control", "Provide complete edit and delete capabilities with interactive deletion confirmation dialogs.", "✓ Pre-populated edit sheets\n✓ Deletion safety prompts\n✓ Real-time status banners")
     ]
 
     for i, (title, desc, bullets) in enumerate(cards_data):
@@ -101,8 +101,8 @@ def create_presentation():
         card = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = COLOR_BG_CARD
-        card.line.color.rgb = COLOR_PURPLE
-        card.line.width = Pt(1.5)
+        card.line.color.rgb = COLOR_PRIMARY
+        card.line.width = Pt(2)
 
         tb = slide2.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), width - Inches(0.4), height - Inches(0.4))
         tf = tb.text_frame
@@ -137,7 +137,7 @@ def create_presentation():
         ("Flask 3.x (Web Framework)", "Lightweight micro-framework enabling flexible routing, query parameter handling, and session flash alerts."),
         ("SQLite 3 (Relational Storage)", "Zero-setup embedded database engine with automated schema migration and parameterized query safety."),
         ("Jinja2 (Dynamic Templating)", "Renders dynamic HTML views, loops, and conditional search banners with automatic XSS protection."),
-        ("Semantic HTML5 & Modern CSS3", "Custom CSS Grid, Flexbox, glassmorphic blurs, and keyframe animations without external bloat."),
+        ("Neo-Brutalist CSS3 Styling", "Custom CSS Grid, 3D offset drop-shadows, marquee animation track, and tactile button feedback."),
         ("Python Unittest (Verification)", "Automated test suite guaranteeing 100% test pass rate across routing, search filters, and CRUD logic.")
     ]
 
@@ -152,8 +152,8 @@ def create_presentation():
         card = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = COLOR_BG_CARD
-        card.line.color.rgb = RGBColor(226, 232, 240)
-        card.line.width = Pt(1)
+        card.line.color.rgb = COLOR_PRIMARY
+        card.line.width = Pt(1.5)
 
         tb = slide3.shapes.add_textbox(left + Inches(0.2), top + Inches(0.15), width - Inches(0.4), height - Inches(0.3))
         tf = tb.text_frame
@@ -163,7 +163,7 @@ def create_presentation():
         pt.text = title
         pt.font.size = Pt(15)
         pt.font.bold = True
-        pt.font.color.rgb = COLOR_BLUE
+        pt.font.color.rgb = COLOR_PRIMARY
 
         pr = tf.add_paragraph()
         pr.text = reason
@@ -178,9 +178,9 @@ def create_presentation():
     add_header(slide4, "System Architecture: MVC Design Pattern", "03 / ARCHITECTURE")
 
     mvc_blocks = [
-        ("MODEL (database.py)", "Data Layer", "• Manages SQLite database connection\n• Executes SQL queries with LIKE filters for search\n• Performs non-destructive schema migrations\n• Enforces parameterized SQL safety"),
-        ("CONTROLLER (app.py)", "Application Logic", "• Flask routing system mapping URLs to handlers\n• Parses search query parameter (?q=...)\n• Validates title & content constraints\n• Emits feedback flash banners"),
-        ("VIEW (templates/ & style.css)", "Animated Interface", "• 2-column responsive card grid\n• Keyframe entrance & hover animations\n• Glassmorphic dark navbar & hero styling\n• Fully responsive mobile & tablet design")
+        ("MODEL (database.py)", "Data Layer", "• Manages SQLite database connection\n• Executes SQL queries with LIKE filters for search\n• Performs non-destructive schema migrations\n• Tracks view counts & interactive likes"),
+        ("CONTROLLER (app.py)", "Application Logic", "• Flask routing system mapping URLs to handlers\n• Parses search query parameter (?q=...)\n• Validates title & content constraints\n• Coordinates like toggles and flash banners"),
+        ("VIEW (templates/ & style.css)", "Neo-Brutalist Interface", "• 2-column responsive zine card grid\n• Marquee scrolling ticker ribbon\n• 3D tactile offset drop-shadows\n• Interactive heart likes & view statistics")
     ]
 
     for i, (name, role, details) in enumerate(mvc_blocks):
@@ -192,8 +192,8 @@ def create_presentation():
         card = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = COLOR_BG_CARD
-        card.line.color.rgb = COLOR_BLUE
-        card.line.width = Pt(1.5)
+        card.line.color.rgb = COLOR_PRIMARY
+        card.line.width = Pt(2)
 
         tb = slide4.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), width - Inches(0.4), height - Inches(0.4))
         tf = tb.text_frame
@@ -209,7 +209,7 @@ def create_presentation():
         prole.text = role.upper()
         prole.font.size = Pt(11)
         prole.font.bold = True
-        prole.font.color.rgb = COLOR_PURPLE
+        prole.font.color.rgb = COLOR_MUSTARD
         prole.space_before = Pt(2)
 
         pdet = tf.add_paragraph()
@@ -235,11 +235,13 @@ def create_presentation():
     p.font.color.rgb = COLOR_PRIMARY
 
     schema_rows = [
-        ("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT", "Unique post identifier"),
+        ("id", "INTEGER", "PRIMARY KEY AUTOINCREMENT", "Unique story identifier"),
         ("title", "TEXT", "NOT NULL", "Headline of the article"),
         ("content", "TEXT", "NOT NULL", "Full body text of the post"),
         ("author", "TEXT", "DEFAULT 'Author'", "Author or writer attribution"),
-        ("tag", "TEXT", "DEFAULT 'General'", "Category tag (Tech, Design, etc.)"),
+        ("tag", "TEXT", "DEFAULT 'General'", "Category tag (Content Creation, etc.)"),
+        ("views", "INTEGER", "DEFAULT 1", "Total article view counter"),
+        ("likes", "INTEGER", "DEFAULT 0", "Interactive heart likes counter"),
         ("created_at", "TIMESTAMP", "DEFAULT CURRENT_TIMESTAMP", "Initial publishing timestamp"),
         ("updated_at", "TIMESTAMP", "NULLABLE", "Timestamp of most recent revision")
     ]
@@ -247,15 +249,15 @@ def create_presentation():
     for col, ctype, constr, desc in schema_rows:
         p_row = tf5_l.add_paragraph()
         p_row.text = f"• {col} ({ctype}) — {constr}\n   {desc}"
-        p_row.font.size = Pt(12)
+        p_row.font.size = Pt(11)
         p_row.font.color.rgb = COLOR_DARK
-        p_row.space_before = Pt(5)
+        p_row.space_before = Pt(4)
 
     right_card = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.7), Inches(1.8), Inches(4.8), Inches(4.8))
     right_card.fill.solid()
     right_card.fill.fore_color.rgb = COLOR_BG_CARD
-    right_card.line.color.rgb = COLOR_PURPLE
-    right_card.line.width = Pt(1.5)
+    right_card.line.color.rgb = COLOR_PRIMARY
+    right_card.line.width = Pt(2)
 
     right_tb = slide5.shapes.add_textbox(Inches(8.0), Inches(2.0), Inches(4.2), Inches(4.4))
     tf5_r = right_tb.text_frame
@@ -268,10 +270,10 @@ def create_presentation():
     p_rt.font.color.rgb = COLOR_PRIMARY
 
     bullets = [
-        ("Automated Migration", "The application runs PRAGMA table_info to safely add 'author' and 'tag' columns to existing databases."),
+        ("Automated Migration", "The application runs PRAGMA table_info to safely add 'author', 'tag', 'views', and 'likes' columns dynamically."),
         ("Multi-Field Search Query", "Parameterized LIKE query searches across title, content, author, and category tag concurrently."),
         ("Parameterized SQL Protection", "All variables bound through ? syntax to protect against SQL injection."),
-        ("sqlite3.Row Dictionary Mapping", "Enables clean column access row['author'] throughout controllers and templates.")
+        ("sqlite3.Row Dictionary Mapping", "Enables clean column access row['likes'] throughout controllers and templates.")
     ]
 
     for b_title, b_desc in bullets:
@@ -290,8 +292,8 @@ def create_presentation():
     f1 = slide6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
     f1.fill.solid()
     f1.fill.fore_color.rgb = COLOR_BG_CARD
-    f1.line.color.rgb = RGBColor(226, 232, 240)
-    f1.line.width = Pt(1)
+    f1.line.color.rgb = COLOR_PRIMARY
+    f1.line.width = Pt(1.5)
 
     tb_f1 = slide6.shapes.add_textbox(Inches(1.1), Inches(2.1), Inches(5.0), Inches(4.2))
     tf_f1 = tb_f1.text_frame
@@ -304,7 +306,7 @@ def create_presentation():
     p.font.color.rgb = COLOR_PRIMARY
 
     f1_points = [
-        ("Author & Tag Inputs", "Authors specify their signature and select categories (Tech, Design, Coding, Career, Thoughts)."),
+        ("Author & Tag Inputs", "Authors specify their signature and select categories (Content Creation, Design & Style, Technology)."),
         ("Server Validation", "Safeguards reject empty title or content submissions with immediate user warning alerts."),
         ("Dynamic Read Time", "Calculates reading duration automatically from total word count."),
         ("Feedback Redirection", "Routes back to feed with a cheerful confirmation notification.")
@@ -319,8 +321,8 @@ def create_presentation():
     f2 = slide6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.8))
     f2.fill.solid()
     f2.fill.fore_color.rgb = COLOR_BG_CARD
-    f2.line.color.rgb = RGBColor(226, 232, 240)
-    f2.line.width = Pt(1)
+    f2.line.color.rgb = COLOR_PRIMARY
+    f2.line.width = Pt(1.5)
 
     tb_f2 = slide6.shapes.add_textbox(Inches(7.1), Inches(2.1), Inches(5.1), Inches(4.2))
     tf_f2 = tb_f2.text_frame
@@ -333,10 +335,10 @@ def create_presentation():
     p.font.color.rgb = COLOR_PRIMARY
 
     f2_points = [
-        ("Dual-Column Grid", "Articles render side-by-side using CSS Grid (repeat(auto-fill, minmax(340px, 1fr)))."),
+        ("Dual-Column Grid", "Articles render side-by-side using CSS Grid (repeat(auto-fill, minmax(360px, 1fr)))."),
         ("Live Keyword Search", "Instantly filters articles by typing any keyword from title, content, author, or tag."),
         ("Results Status Indicator", "Displays search matches with a one-click 'Clear' button to restore the full board."),
-        ("Card Information Hierarchy", "Each card displays author avatar, category pill, excerpt, date, and reading time.")
+        ("Card Information Hierarchy", "Each card displays author avatar, category pill with status dot, views counter, and like button.")
     ]
     for pt, pd in f2_points:
         p_pt = tf_f2.add_paragraph()
@@ -354,8 +356,8 @@ def create_presentation():
     f3 = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
     f3.fill.solid()
     f3.fill.fore_color.rgb = COLOR_BG_CARD
-    f3.line.color.rgb = RGBColor(226, 232, 240)
-    f3.line.width = Pt(1)
+    f3.line.color.rgb = COLOR_PRIMARY
+    f3.line.width = Pt(1.5)
 
     tb_f3 = slide7.shapes.add_textbox(Inches(1.1), Inches(2.1), Inches(5.0), Inches(4.2))
     tf_f3 = tb_f3.text_frame
@@ -382,8 +384,8 @@ def create_presentation():
     f4 = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.8))
     f4.fill.solid()
     f4.fill.fore_color.rgb = COLOR_BG_CARD
-    f4.line.color.rgb = RGBColor(226, 232, 240)
-    f4.line.width = Pt(1)
+    f4.line.color.rgb = COLOR_PRIMARY
+    f4.line.width = Pt(1.5)
 
     tb_f4 = slide7.shapes.add_textbox(Inches(7.1), Inches(2.1), Inches(5.1), Inches(4.2))
     tf_f4 = tb_f4.text_frame
@@ -397,7 +399,7 @@ def create_presentation():
 
     f4_points = [
         ("POST Method Constraint", "Enforces HTTP POST for deletions to avoid accidental removal via web crawlers."),
-        ("Interactive Confirmation", "Browser prompt 'Are you sure you want to delete this post?' prevents accidents."),
+        ("Interactive Confirmation", "Browser prompt 'Delete this post?' prevents accidental clicks."),
         ("Flash Notification", "Flashes a clear confirmation notice citing the specific removed headline.")
     ]
     for pt, pd in f4_points:
@@ -414,9 +416,9 @@ def create_presentation():
     add_header(slide8, "User Interface & Experience (UI/UX)", "07 / INTERFACE DESIGN")
 
     ux_cards = [
-        ("Blue, Purple & Obsidian Palette", "Deep obsidian background (#090D16), glowing electric blue (#3B82F6), and neon purple (#8B5CF6).", "• Animated gradient glow strip\n• Glassmorphic dark navbar\n• Smooth gradient buttons"),
-        ("2-Column Side-by-Side Grid", "Cards arranged in side-by-side dual columns with subtle elevation on hover.", "• Multi-column desktop layout\n• Author avatars & tag badges\n• Estimated read times"),
-        ("Smooth CSS Keyframe Animations", "Staggered card fade-in-up animations and glowing hover elevation.", "• @keyframes fadeInUp entrance\n• Flowing gradient animation\n• Focus glow transitions"),
+        ("Neo-Brutalist Zine Theme", "Soft powder-sage backdrop (#BCD8D8), crisp off-white cards, oxblood borders (#5B2321), and mustard yellow CTAs.", "• 3D solid offset drop-shadows\n• Floating pill capsule navbar\n• Continuous marquee ticker ribbon"),
+        ("2-Column Side-by-Side Grid", "Cards arranged in side-by-side dual columns with tactile hover elevation.", "• Multi-column desktop layout\n• Author avatars & tag badges\n• Estimated read times"),
+        ("Interactive Story Engagement", "Post cards feature real-time view counts and interactive one-click like heart buttons.", "• 👁️ View counter\n• ❤️ One-click like buttons\n• Instant state feedback"),
         ("Responsive Layout", "Flexbox and CSS Grid adapt gracefully from wide desktop monitors to mobile phones.", "• Auto-stacking form fields\n• Mobile-friendly touch targets\n• Zero horizontal scroll")
     ]
 
@@ -431,8 +433,8 @@ def create_presentation():
         card = slide8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = COLOR_BG_CARD
-        card.line.color.rgb = RGBColor(226, 232, 240)
-        card.line.width = Pt(1)
+        card.line.color.rgb = COLOR_PRIMARY
+        card.line.width = Pt(1.5)
 
         tb = slide8.shapes.add_textbox(left + Inches(0.2), top + Inches(0.15), width - Inches(0.4), height - Inches(0.3))
         tf = tb.text_frame
@@ -442,7 +444,7 @@ def create_presentation():
         pt.text = title
         pt.font.size = Pt(15)
         pt.font.bold = True
-        pt.font.color.rgb = COLOR_BLUE
+        pt.font.color.rgb = COLOR_PRIMARY
 
         pr = tf.add_paragraph()
         pr.text = desc
@@ -463,10 +465,10 @@ def create_presentation():
     add_header(slide9, "Key Findings & Technical Learnings", "08 / EVALUATION & LEARNINGS")
 
     learnings = [
-        ("Database Schema Migrations in Production", "Gained practical experience implementing non-destructive schema migrations (using PRAGMA table_info and ALTER TABLE) to add author and tag fields without losing existing data."),
+        ("Database Schema Migrations in Production", "Gained practical experience implementing non-destructive schema migrations (using PRAGMA table_info and ALTER TABLE) to add author, tag, views, and likes columns without losing existing data."),
         ("Building Flexible Search Filters", "Mastered multi-field SQL LIKE queries with wildcards (%...%) and learned how URL query parameters (?q=...) enable bookmarkable and shareable search states."),
-        ("Modern Animation Systems & Micro-Interactions", "Discovered how CSS keyframe animations, staggered delays, and electric gradient accents turn a simple application into a visually engaging product."),
-        ("Automated Testing for Regression Protection", "Expanded the test suite to 6 unit tests covering author attribution, search filters, and CRUD integrity, proving that tests give confidence when refactoring.")
+        ("Tactile Neo-Brutalist Design Systems", "Discovered how solid 3D offset drop shadows, pill capsules, marquee ribbons, and high-contrast typography create a memorable physical zine feel."),
+        ("Automated Testing for Regression Protection", "Expanded the test suite to 7 unit tests covering like toggles, view counts, search filters, and CRUD integrity, proving that tests give confidence when refactoring.")
     ]
 
     for i, (head, body) in enumerate(learnings):
@@ -478,7 +480,7 @@ def create_presentation():
         card = slide9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = COLOR_BG_CARD
-        card.line.color.rgb = COLOR_PURPLE
+        card.line.color.rgb = COLOR_PRIMARY
         card.line.width = Pt(1)
 
         tb = slide9.shapes.add_textbox(left + Inches(0.2), top + Inches(0.1), width - Inches(0.4), height - Inches(0.2))
@@ -506,8 +508,8 @@ def create_presentation():
     c_card = slide10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
     c_card.fill.solid()
     c_card.fill.fore_color.rgb = COLOR_BG_CARD
-    c_card.line.color.rgb = RGBColor(226, 232, 240)
-    c_card.line.width = Pt(1)
+    c_card.line.color.rgb = COLOR_PRIMARY
+    c_card.line.width = Pt(1.5)
 
     tb_c = slide10.shapes.add_textbox(Inches(1.1), Inches(2.1), Inches(5.0), Inches(4.2))
     tf_c = tb_c.text_frame
@@ -520,9 +522,9 @@ def create_presentation():
     p.font.color.rgb = COLOR_PRIMARY
 
     chal_points = [
-        ("Clean Schema Evolution", "Adapted the SQLite database with new columns while preserving existing post data."),
+        ("Clean Schema Evolution", "Adapted the SQLite database with new columns (author, tag, views, likes) while preserving existing post data."),
         ("Multi-Field Search Logic", "Engineered SQL LIKE queries that match keywords across title, content, author, and category tag simultaneously."),
-        ("Fluid CSS Animation Performance", "Engineered GPU-accelerated keyframe animations that run at 60fps across mobile and desktop.")
+        ("Neo-Brutalist Layout Precision", "Designed 3D offset box-shadows and marquee ribbon animations running smoothly at 60fps across mobile and desktop.")
     ]
     for pt, pd in chal_points:
         p_pt = tf_c.add_paragraph()
@@ -534,8 +536,8 @@ def create_presentation():
     r_card = slide10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.8))
     r_card.fill.solid()
     r_card.fill.fore_color.rgb = COLOR_BG_CARD
-    r_card.line.color.rgb = RGBColor(226, 232, 240)
-    r_card.line.width = Pt(1)
+    r_card.line.color.rgb = COLOR_PRIMARY
+    r_card.line.width = Pt(1.5)
 
     tb_r = slide10.shapes.add_textbox(Inches(7.1), Inches(2.1), Inches(5.1), Inches(4.2))
     tf_r = tb_r.text_frame
@@ -548,10 +550,10 @@ def create_presentation():
     p.font.color.rgb = COLOR_PRIMARY
 
     road_points = [
-        ("User Accounts & Authentication", "Introduce login with bcrypt password hashing for individual author accounts."),
+        ("User Accounts & Authentication", "Introduce login with bcrypt password hashing so authors only edit and delete their own posts."),
         ("Markdown Support", "Support markdown formatting and code syntax highlighting."),
         ("Comments Section", "Enable readers to leave feedback on individual articles."),
-        ("Cloud Hosting", "Deploy to cloud platforms (Render, Railway, or AWS) with a live public URL.")
+        ("Reader Engagement", "Add article bookmarking, reading streaks, and reader view metrics (with live cloud deployment already achieved on Vercel at like-a-blogger.vercel.app!).")
     ]
     for pt, pd in road_points:
         p_pt = tf_r.add_paragraph()

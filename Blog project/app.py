@@ -1,22 +1,21 @@
 import os
-from flask import Flask, render_template, request, url_for, flash, redirect, abort
+from flask import Flask, render_template, request, url_for, flash, redirect, abort, jsonify
 import database
 
-# Ensure Flask always finds the templates and static folders on cloud deployments
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app = Flask(
     __name__,
     template_folder=os.path.join(BASE_DIR, 'templates'),
     static_folder=os.path.join(BASE_DIR, 'static')
 )
-app.config['SECRET_KEY'] = 'nexus-blue-purple-blog-key-2026'
+app.config['SECRET_KEY'] = 'like-a-blogger-secret-key-2026'
 
-# Initialize database tables and migrations on startup
+# Initialize database schema and perform migrations
 database.init_db()
 
 @app.route('/')
 def index():
-    """Homepage: Displays all posts side-by-side with live search filtering."""
+    """Homepage: Displays all blog posts in a neo-brutalist dual-column grid with live search."""
     search_query = request.args.get('q', '').strip()
     posts = database.get_all_posts(search_query=search_query if search_query else None)
     return render_template('index.html', posts=posts, search_query=search_query)
@@ -27,8 +26,8 @@ def create():
     if request.method == 'POST':
         title = request.form.get('title', '')
         content = request.form.get('content', '')
-        author = request.form.get('author', 'Author')
-        tag = request.form.get('tag', 'Tech')
+        author = request.form.get('author', 'Admin')
+        tag = request.form.get('tag', 'Content Creation')
 
         if not title.strip():
             flash('Title is required!', 'error')
@@ -36,15 +35,15 @@ def create():
             flash('Content cannot be empty!', 'error')
         else:
             database.create_post(title, content, author=author, tag=tag)
-            flash('✨ Post published successfully!', 'success')
+            flash('✦ Story published to Like a Blogger!', 'success')
             return redirect(url_for('index'))
 
     return render_template('create.html')
 
 @app.route('/post/<int:post_id>')
 def post_detail(post_id):
-    """View: Displays a single full blog post."""
-    post = database.get_post(post_id)
+    """View: Displays a single full blog post and increments view counter."""
+    post = database.get_post(post_id, increment_views=True)
     if post is None:
         abort(404)
     return render_template('post.html', post=post)
@@ -59,8 +58,8 @@ def edit(post_id):
     if request.method == 'POST':
         title = request.form.get('title', '')
         content = request.form.get('content', '')
-        author = request.form.get('author', 'Author')
-        tag = request.form.get('tag', 'Tech')
+        author = request.form.get('author', 'Admin')
+        tag = request.form.get('tag', 'Content Creation')
 
         if not title.strip():
             flash('Title is required!', 'error')
@@ -68,7 +67,7 @@ def edit(post_id):
             flash('Content cannot be empty!', 'error')
         else:
             database.update_post(post_id, title, content, author=author, tag=tag)
-            flash('✨ Post updated successfully!', 'success')
+            flash('✦ Story updated successfully!', 'success')
             return redirect(url_for('post_detail', post_id=post_id))
 
     return render_template('edit.html', post=post)
@@ -81,8 +80,23 @@ def delete(post_id):
         abort(404)
 
     database.delete_post(post_id)
-    flash(f'🗑️ Post "{post["title"]}" was deleted.', 'info')
+    flash(f'🗑️ Story "{post["title"]}" was removed.', 'info')
     return redirect(url_for('index'))
+
+@app.route('/post/<int:post_id>/like', methods=('POST',))
+def like_post(post_id):
+    """Like: Increments like count on a post."""
+    post = database.get_post(post_id)
+    if post is None:
+        abort(404)
+    new_likes = database.toggle_like_post(post_id)
+    
+    # If request came via fetch/AJAX, return JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.is_json:
+        return jsonify({'success': True, 'likes': new_likes})
+    
+    # Otherwise redirect back to the referring page
+    return redirect(request.referrer or url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(e):

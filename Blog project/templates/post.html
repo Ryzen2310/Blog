@@ -1,50 +1,62 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ post['title'] }} | Nexus Blog{% endblock %}
+{% block title %}{{ post['title'] }} | Like a Blogger{% endblock %}
 
 {% block content %}
 <div class="single-post-wrapper">
-    <div class="breadcrumb-nav">
-        <a href="{{ url_for('index') }}" class="back-link">&larr; Return to Feed</a>
+    <div class="breadcrumb-bar">
+        <a href="{{ url_for('index') }}" class="back-link">➔ Return to Home Feed</a>
     </div>
 
-    <article class="single-post-article">
-        <header class="article-header">
-            <div class="article-tags">
-                <span class="tag-badge">{{ post['tag'] if post['tag'] else 'General' }}</span>
-                <span class="read-time">⏱️ {{ (post['content'].split()|length // 150) + 1 }} min read</span>
+    <article class="zine-article-container">
+        <header class="zine-article-header">
+            <div class="article-meta-tags">
+                <span class="pill-category">
+                    <span class="category-dot">●</span>
+                    {{ post['tag'] if post['tag'] else 'Content Creation' }}
+                </span>
+                <span class="zine-readtime">⏱️ {{ (post['content'].split()|length // 150) + 1 }} min read</span>
             </div>
 
-            <h1 class="article-title">{{ post['title'] }}</h1>
+            <h1 class="article-main-title">{{ post['title'] }}</h1>
 
-            <div class="article-author-bar">
-                <div class="article-author">
-                    <div class="author-avatar-badge">{{ post['author'][:1] if post['author'] else 'A' }}</div>
+            <div class="article-meta-row">
+                <div class="author-capsule">
+                    <span class="author-initial">{{ post['author'][:1] if post['author'] else 'A' }}</span>
                     <div>
-                        <div class="author-name-lg">{{ post['author'] if post['author'] else 'Author' }}</div>
-                        <div class="article-meta-date">
-                            Published on {{ post['created_at'] }}
+                        <div class="author-name-bold">{{ post['author'] if post['author'] else 'Author' }}</div>
+                        <div class="article-date-subtext">
+                            Published on {{ post['created_at'][:10] }}
                             {% if post['updated_at'] %}
-                                • <span class="edited-tag">Edited on {{ post['updated_at'] }}</span>
+                                • <span class="edited-badge">Edited on {{ post['updated_at'][:10] }}</span>
                             {% endif %}
                         </div>
                     </div>
                 </div>
+
+                <div class="article-live-stats">
+                    <span class="stat-pill">👁️ {{ post['views'] }} views</span>
+                    <form action="{{ url_for('like_post', post_id=post['id']) }}" method="POST" class="inline-form">
+                        <button type="submit" class="btn-like-pill-lg" title="Like this story">
+                            ❤️ {{ post['likes'] }} Likes
+                        </button>
+                    </form>
+                </div>
             </div>
         </header>
 
-        <div class="article-body">
-            <div class="article-content-text">{{ post['content'] }}</div>
+        <div class="zine-article-content">
+            <div class="article-body-text">{{ post['content'] }}</div>
         </div>
 
-        <footer class="article-footer">
-            <div class="article-actions">
-                <a href="{{ url_for('edit', post_id=post['id']) }}" class="btn btn-secondary-dark">✏️ Edit Post</a>
-                <form action="{{ url_for('delete', post_id=post['id']) }}" method="POST" class="inline-form" onsubmit="return confirm('Are you sure you want to permanently delete this post?');">
-                    <button type="submit" class="btn btn-danger-dark">🗑️ Delete Post</button>
+        <footer class="zine-article-footer">
+            <div class="footer-actions">
+                <a href="{{ url_for('edit', post_id=post['id']) }}" class="btn btn-zine-action btn-zine-edit">✏️ Edit Story</a>
+                <form action="{{ url_for('delete', post_id=post['id']) }}" method="POST" class="inline-form" onsubmit="return confirm('Permanently remove this story?');">
+                    <button type="submit" class="btn btn-zine-action btn-zine-delete">🗑️ Delete Story</button>
                 </form>
             </div>
-            <a href="{{ url_for('index') }}" class="btn-clear-link">Back to Feed &rarr;</a>
+            <a href="{{ url_for('index') }}" class="back-to-feed-link">Back to Feed ➔</a>
         </footer>
     </article>
 </div>

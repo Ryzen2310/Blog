@@ -1,7 +1,7 @@
 import database
 
 def seed_database():
-    """Populates the database with versatile, realistic sample blog posts."""
+    """Populates the database with stylish 'Like a Blogger' sample stories."""
     database.init_db()
     conn = database.get_db_connection()
     conn.execute('DELETE FROM posts')
@@ -9,30 +9,38 @@ def seed_database():
     conn.close()
 
     database.create_post(
-        title="Getting Started with Modern Full-Stack Development",
-        content="Building modern web applications requires a solid understanding of both frontend presentation and backend architecture. By structuring applications using the Model-View-Controller pattern, developers can cleanly decouple data persistence from business logic.\n\nPython and Flask provide an ideal environment for mastering HTTP routing, parameterized database queries, and dynamic template rendering without unnecessary abstraction.",
-        author="Alex Chen",
-        tag="Tech"
+        title="The Modern Guide to Content Creation & Digital Storytelling",
+        content="In an era of fleeting attention spans, creating content that resonates requires intentionality and authentic perspective. Whether writing technical breakdowns, design teardowns, or personal dispatches, finding your distinctive voice is the ultimate differentiator.\n\nGreat blogs don't just broadcast information—they build intimate intellectual conversations with curious readers. Start with clarity, embrace unique visual aesthetics, and publish with conviction.",
+        author="Admin",
+        tag="Content Creation",
+        views=142,
+        likes=28
     )
     database.create_post(
-        title="Why Intuitive UI & UX Design Matters",
-        content="Great software is not just about clean code—it is about how the end user feels when interacting with your product. Thoughtful color hierarchy, responsive layouts, and immediate visual feedback turn a basic tool into an engaging experience.\n\nMicro-interactions, smooth hover animations, and clear status banners help guide users naturally and prevent frustration.",
-        author="Jordan Lee",
-        tag="Design"
+        title="Design Systems: Why Neo-Brutalism & Tactile Shadows are Back",
+        content="For the past decade, web design was dominated by flat minimalism and ethereal blurred dropshadows. Today, a bold counter-revolution is taking over: Neo-Brutalism.\n\nWith high-contrast borders, solid 3D offset drop shadows, pill-shaped tags, and expressive display typography, modern interfaces feel tangible and tactile once again. When every website looks the same, bold design is your superpower.",
+        author="Studio Lead",
+        tag="Design & Style",
+        views=98,
+        likes=19
     )
     database.create_post(
-        title="Key Takeaways from My Software Engineering Internship",
-        content="During this internship project, I focused on end-to-end CRUD operations, database schema migrations, and writing automated unit tests.\n\nOne of the biggest lessons was learning to prioritize user requirements first, iteratively refining features, and verifying every endpoint with automated test suites before deploying.",
-        author="Intern Developer",
-        tag="Career"
+        title="Building Full-Stack Web Apps: From Concept to Production",
+        content="Taking an idea from a blank text editor to a live globally-deployed URL is one of the most rewarding journeys in software engineering. By mastering foundational architectural patterns like Model-View-Controller (MVC) and understanding database normalization, complex workflows become manageable.\n\nPython, Flask, and SQLite provide the ultimate developer experience: zero boilerplate, instant feedback loops, and complete transparency.",
+        author="Intern Dev",
+        tag="Technology",
+        views=215,
+        likes=43
     )
     database.create_post(
-        title="The Habit of Daily Technical Writing & Reflection",
-        content="Documenting what you learn every single day is one of the highest-leverage habits any developer can build. Writing forces clarity of thought and reveals gaps in your understanding.\n\nWhether writing architecture decision records, release notes, or personal dev logs, putting thoughts into words solidifies engineering knowledge.",
-        author="Morgan Reed",
-        tag="Thoughts"
+        title="The Habit of Daily Editorial Writing & Creative Output",
+        content="Consistency is the mother of mastery. Setting aside just thirty minutes each morning to articulate ideas forces intellectual rigor and reveals subtle nuances you might otherwise miss.\n\nDocument your process, share what you are learning in public, and treat every article as a stepping stone toward deeper expertise.",
+        author="Editorial",
+        tag="Writing Tips",
+        views=86,
+        likes=15
     )
-    print("Successfully seeded 4 professional sample posts!")
+    print("Successfully seeded 'Like a Blogger' sample posts!")
 
 if __name__ == '__main__':
     seed_database()
