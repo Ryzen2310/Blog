@@ -1,4 +1,4 @@
-# ⚡ Nexus Blog — Modern Full-Stack Web Application
+# Like a Blogger
 
 A sleek, responsive, and animated web application built with **Python**, **Flask**, and **SQLite**. Featuring an obsidian dark aesthetic accented with **electric blue and neon purple gradients**, this project was developed as an internship evaluation assignment focusing on clean **MVC** architecture, full **CRUD** operations, a **multi-column card grid**, and a **real-time search bar**.
 
